@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "SkyHttpHeader",
+  "description": "Check http header. Copy clipborad.",
+  "version": "0.0.1",
+  "browser_action": {
+    "default_icon": "img/icon.png",
+     "default_popup": "popup.html"
+  },
+
+  "permissions": [ "webRequest", "storage", "webRequestBlocking", "tabs", "http://*/", "https://*/", "clipboardRead" ],
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["js/background.js"]
+  }
+}

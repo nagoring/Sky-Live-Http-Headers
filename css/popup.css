@@ -1,0 +1,22 @@
+
+
+#popup_main{
+	width: 100%;
+	min-width: 640px;
+	min-height: 100px;
+	font-size: 80%;
+}
+input{
+	min-width: 500px;
+	background: transparent;
+	border:0;
+}
+.sky-th-main{
+	background: #86cecb;
+}
+.sky-th-rr{
+	background: #c3e5e7;
+}
+.sky-margin-zero{
+	margin:0;
+}
