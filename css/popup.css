@@ -13,6 +13,9 @@ input{
 }
 .sky-th-main{
 	background: #86cecb;
+	margin:0;
+	padding:0;
+	
 }
 .sky-th-rr{
 	background: #c3e5e7;

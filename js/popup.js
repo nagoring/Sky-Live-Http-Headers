@@ -23,7 +23,7 @@ var TEMPLATE = '\
 	#{responseTrParicals}\
 	</tbody>\
 </table>\
-<textarea id="copy_area">#{copyArea}</textarea>\
+<textarea id="copyArea">#{copyArea}</textarea>\
 ';
 var thisTemplate = '';
 var TR_PARTIAL_TEMPLATE = '\
@@ -37,7 +37,7 @@ var thisPartials  = {
 	responseTrArray : [],
 };
 function sortHeaders(_a, _b) {
-    var a = _a.name.toLowerCase();
+	var a = _a.name.toLowerCase();
 	var b = _b.name.toLowerCase();
 	if(a < b)return -1;
 	if(a > b)return 1;
@@ -55,7 +55,6 @@ chrome.tabs.getSelected(null, function (tab) {
 	var requestLength = details.request.length;
 	var responseLength = details.response.length;
 	var html = '';
-	var key = '';
 	for(var i=0; i<responseLength; i++){
 		createTemplate();
 		var request = details.request[i];
@@ -65,30 +64,38 @@ chrome.tabs.getSelected(null, function (tab) {
 		setTemplateParam("url", request.url);
 		
 		for(var key in request.requestHeaders){
-			var value = '';
 			var obj = request.requestHeaders[key];
 			addTrPartial("requestTrArray", obj.name, obj.value);
 		}
+		
+		setTemplateParam("statusLine", response.statusLine);
 		for(var key in response.responseHeaders){
-			var value = '';
 			var obj = response.responseHeaders[key];
 			addTrPartial("responseTrArray", obj.name, obj.value);
 		}
 		setTemplateParam("requestTrParicals", getTrPartial("requestTrArray"));
 		setTemplateParam("responseTrParicals", getTrPartial("responseTrArray"));
+		var copyArea = createCopyAreaText(request, response);
+		setTemplateParam("copyArea", copyArea);
+	
 		html += getTemplate();
 	}
 	document.getElementById('popup_main').innerHTML = html;
 
-	
-	
+	//Create http headers in copy area.
+	var $copyArea = document.getElementById("copyArea");
+	$copyArea.style.cssText = "position:absolute;left:-100%";
+	var copy = document.getElementById('copyBtn');
+	var link = document.getElementById('test');
+	copy.addEventListener('click', function() {
+		copyClipboard($copyArea);
+	});
 });
 
 function setTemplateParam(source, dest){
 	thisTemplate = thisTemplate.replace("#{" + source + "}", dest);
 };
 function addTrPartial(label, key, value){
-	;
 	var partial = TR_PARTIAL_TEMPLATE.replace("#{key}", key);
 	partial = partial.replace("#{value}", value);
 	thisPartials[label].push(partial);
@@ -107,32 +114,29 @@ function createTemplate(){
 function getTemplate(){
 	return thisTemplate;
 }
-function saveToClipboard(str) {
-	var textArea = document.createElement("textarea");
-	textArea.style.cssText = "position:absolute;left:-100%";
-
-	document.body.appendChild(textArea);
-
-	textArea.value = str;
-	textArea.select();
+function copyClipboard($copyArea) {
+	document.body.appendChild(copyArea);
+	copyArea.select();
 	document.execCommand("copy");
-
-	document.body.removeChild(textArea);
+	document.body.removeChild(copyArea);
 }
-// function copyOnclick(){
-// 	alert("aaaaaaaaaaaa");
-// }
-// window.onload = function(){
-	// var $copyBtn = document.getElementById("copyBtn");
-	// $copyBtn.addEventListener("click", function(){
-	// });
-// }
-document.addEventListener('DOMContentLoaded', function() {
-    var link = document.getElementById('test');
-	link.innerText = "FFFFFFFF";
-    // onClick's logic below:
-    link.addEventListener('click', function() {
-    	var element = document.getElementById('test');
-		element.innerText = "ZZZZZZZZZZ";
-    });
-});
+function createCopyAreaText(request, response){
+	var html = '';
+	request.requestHeaders.sort(sortHeaders);
+	html += request.method + "\t" + request.url + "\n";
+	html += response.statusLine + "\n";
+	
+	html += "Request Headers\n";
+	for(var key in request.requestHeaders){
+		var obj = request.requestHeaders[key];
+		html += obj.name + "\t" + obj.value + "\n";
+	}
+	html += "Response Headers\n";
+	
+	for(var key in response.responseHeaders){
+		var value = '';
+		var obj = response.responseHeaders[key];
+		html += obj.name + "\t" + obj.value + "\n";
+	}
+	return html;
+}
