@@ -60,6 +60,8 @@ chrome.tabs.getSelected(null, function (tab) {
 		var request = details.request[i];
 		var response = details.response[i];
 		request.requestHeaders.sort(sortHeaders);
+		response.responseHeaders.sort(sortHeaders);
+
 		setTemplateParam("method", request.method);
 		setTemplateParam("url", request.url);
 		
@@ -123,6 +125,7 @@ function copyClipboard($copyArea) {
 function createCopyAreaText(request, response){
 	var html = '';
 	request.requestHeaders.sort(sortHeaders);
+	response.responseHeaders.sort(sortHeaders);
 	html += request.method + "\t" + request.url + "\n";
 	html += response.statusLine + "\n";
 	
