@@ -7,7 +7,7 @@
 	"default_icon": "img/icon.png",
 	"default_popup": "popup.html"
 },
-
+"homepage_url": "https://github.com/nagoring/SkyHttpHeader",
 "permissions": [ "webRequest", "storage", "webRequestBlocking", "tabs", "http://*/", "https://*/", "clipboardRead" ],
 "background": {
 	"scripts": ["js/background.js"]
