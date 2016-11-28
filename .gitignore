@@ -5,3 +5,8 @@
 *.psd
 *.bmp
 .vscode/
+!img/icon.png
+!img/icon_red.png
+!img/icon_green.png
+!img/icon_yellow.png
+
