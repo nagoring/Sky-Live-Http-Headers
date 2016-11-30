@@ -1,9 +1,9 @@
 {
 "manifest_version": 2,
-"name": "SkyHttpHeader",
-"description": "Check http header. Copy clipborad.",
-"version": "0.0.2",
-"homepage_url": "https://github.com/nagoring/SkyHttpHeader",
+"name": "Sky Live Http Headers",
+"description": "Sky Live Http Headers can graphically display Http requests and response headers.You can use the Copy button to copy the header information to the clipboard.",
+"version": "0.0.3",
+"homepage_url": "https://github.com/nagoring/Sky-Live-Http-Headers",
 "browser_action": {
 	"default_icon": "img/icon.png",
 	"default_popup": "popup.html"
