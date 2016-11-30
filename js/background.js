@@ -4,9 +4,7 @@ chrome.storage.sync.get({
 }, function(items) {
 	backgroundSkyHttpHeader(items.mode);
 });
-
 function backgroundSkyHttpHeader(mode){
-	
 	chrome.webRequest.onSendHeaders.addListener(function (details) {
 		var tabId = details.tabId;
 		if(headersDetails[tabId] === void 0){
@@ -24,10 +22,8 @@ function backgroundSkyHttpHeader(mode){
 		urls: ["<all_urls>"],
 		types: ["main_frame"]
 	},["requestHeaders"]);
-
-
 	chrome.webRequest.onHeadersReceived.addListener(function(details){
-		if(parseInt(details, 10) === -1)return;
+		if(parseInt(details.tabId, 10) === -1)return;
 		var tabId = details.tabId;
 		headersDetails[tabId].response.push(details);
 	}, 
@@ -48,7 +44,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeinfo, tab) {
 		xhr.open('GET', url, true);
 
 		xhr.onload = function (e) {
-		console.log("onload bbbbbbbbbbbb");
 			var statusCode = e.currentTarget.status;
 			var iconName = getIconName(statusCode);
 			chrome.browserAction.setIcon({
