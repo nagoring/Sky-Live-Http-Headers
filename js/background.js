@@ -6,6 +6,7 @@ chrome.storage.sync.get({
 });
 function backgroundSkyHttpHeader(mode){
 	chrome.webRequest.onSendHeaders.addListener(function (details) {
+		if(parseInt(details.tabId, 10) === -1)return;
 		var tabId = details.tabId;
 		if(headersDetails[tabId] === void 0){
 			headersDetails[tabId] = {};

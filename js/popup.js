@@ -45,7 +45,6 @@ function sortHeaders(_a, _b) {
 }
 
 chrome.tabs.getSelected(null, function (tab) {
-
 	var headersDetails =  chrome.extension.getBackgroundPage().headersDetails;
 	var details = headersDetails[tab.id];
 	if(details === void 0){
@@ -88,14 +87,13 @@ chrome.tabs.getSelected(null, function (tab) {
 	var $copyArea = document.getElementById("copyArea");
 	$copyArea.style.cssText = "position:absolute;left:-100%";
 	var copy = document.getElementById('copyBtn');
-	var link = document.getElementById('test');
 	copy.addEventListener('click', function() {
 		copyClipboard($copyArea);
 	});
 });
 
-function setTemplateParam(source, dest){
-	thisTemplate = thisTemplate.replace("#{" + source + "}", dest);
+function setTemplateParam(key, value){
+	thisTemplate = thisTemplate.replace("#{" + key + "}", value);
 };
 function addTrPartial(label, key, value){
 	var partial = TR_PARTIAL_TEMPLATE.replace("#{key}", key);
