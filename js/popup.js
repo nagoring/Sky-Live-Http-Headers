@@ -1,3 +1,5 @@
+'use strict'
+
 var TEMPLATE = '\
 <table class="table table-striped table-inverse sky-margin-zero">\
 	<thead class="thead-inverse">\
@@ -44,8 +46,14 @@ function sortHeaders(_a, _b) {
 	return 0;
 }
 
-chrome.tabs.getSelected(null, function (tab) {
+
+chrome.tabs.query({active: true, lastFocusedWindow : true}, (tabs) => {
 	var headersDetails =  chrome.extension.getBackgroundPage().background.getHeadersDetails();
+	if(tabs === void 0 || tabs.length === 0 || tabs[0] === void 0){
+		document.getElementById('popup_main').innerHTML = "failed tabs";
+		return;	
+	}
+	let tab = tabs[0];
 	
 	var details = headersDetails[tab.id];
 	if(details === void 0){
