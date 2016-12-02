@@ -35,7 +35,6 @@ class BackgroundWebRequest {
 	}
 	setOnHeadersReceived(){
 		chrome.webRequest.onHeadersReceived.addListener((details) => {
-			console.log(details.tabId);
 			if(parseInt(details.tabId, 10) === -1)return;
 			if(this.headersDetails === void 0 || this.headersDetails[details.tabId] === void 0)return;
 			let tabId = details.tabId;
