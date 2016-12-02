@@ -45,7 +45,8 @@ function sortHeaders(_a, _b) {
 }
 
 chrome.tabs.getSelected(null, function (tab) {
-	var headersDetails =  chrome.extension.getBackgroundPage().headersDetails;
+	var headersDetails =  chrome.extension.getBackgroundPage().background.getHeadersDetails();
+	
 	var details = headersDetails[tab.id];
 	if(details === void 0){
 		document.getElementById('popup_main').innerHTML = "";
@@ -141,3 +142,4 @@ function createCopyAreaText(request, response){
 	}
 	return html;
 }
+
