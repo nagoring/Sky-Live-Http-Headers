@@ -28,7 +28,7 @@ class SkyTemplate {
 		<textarea id="copyArea">#{copyArea}</textarea>\
 		';
 	}
-	static TR_PARTIAL_TEMPLATE(){ 
+	static KEY_VALUE_PARTIAL(){ 
 		return '\
 		<tr>\
 			<th nowrap="nowrap">#{key}</th>\
@@ -38,23 +38,31 @@ class SkyTemplate {
 	}
 	constructor() {
 		this.tempalte = "";
-		this.partials = {
-			requestTrArray : [],
-			responseTrArray : [],
-		};
+		this.partials = {};
+		this.sourceTemplate = SkyTemplate.TEMPLATE();
+		this.sourceKeyValuePartial = SkyTemplate.KEY_VALUE_PARTIAL();
+	}
+	setSourceTemplate(template){
+		this.sourceTemplate = template;
+	}
+	setSourceKeyValuePartial(partial){
+		this.sourceKeyValuePartial = partial;
+	}
+	addPartialLabel(label, value){
+		this.partials[label] = value;
 	}
 	createTemplate(){
-		this.tempalte = SkyTemplate.TEMPLATE();
+		this.tempalte = this.sourceTemplate;
 	}
 	setTemplateParam(key, value){
 		this.tempalte = this.tempalte.replace("#{" + key + "}", value);
 	}
-	addTrPartial(label, key, value){
-		var partial = SkyTemplate.TR_PARTIAL_TEMPLATE().replace("#{key}", key);
+	addKeyValuePartial(label, key, value){
+		var partial = this.sourceKeyValuePartial.replace("#{key}", key);
 		partial = partial.replace("#{value}", value);
 		this.partials[label].push(partial);
 	}
-	getTrPartial(label){
+	getKeyValuePartial(label){
 		var trTags = "";
 		var length = this.partials[label].length;
 		for(var i=0;i<length;i++){
