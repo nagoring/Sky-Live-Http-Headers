@@ -2,7 +2,8 @@ describe("SkyTemplate", () => {
 	var template;
 
 	beforeEach(() => {
-		template = new SkyTemplate();
+		template = SkyTemplate.getInstance();
+		template.init();
 	});
 
 	it("should get template", () => {
@@ -21,7 +22,6 @@ describe("SkyTemplate", () => {
 
 	it("should get KeyValue partial", () => {
 		template.addPartialLabel('requestTrArray', []);
-		// template.setSourceTemplate("<table>#{partial}</table>");
 		template.setSourceKeyValuePartial("<tr><th>#{key}</th><td>#{value}</td></tr>");
 		template.createTemplate();
 		template.addKeyValuePartial('requestTrArray', 'Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8');

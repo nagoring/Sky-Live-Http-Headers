@@ -3,14 +3,7 @@ chrome = {
 		sync: {
 			get: function(keys, callback) {
 				callback(keys);
-			},
-			set: function() {
 			}
-		}
-		},
-		runtime: {
-		sendMessage: function(params, callback) {
-			callback();
 		}
 	},
 	webRequest: {
@@ -28,11 +21,25 @@ chrome = {
 		}
 	},
 	tabs: {
+		tabs: [],
+		query: (queryInfo, callback) => {
+			callback(chrome.tabs.tabs);
+		},
 		onUpdated: {
 			addListener : (callback, filter, opt_extraInfoSpec) => {
-				console.log();
 			}
+		}
+	},
+	extension: {
+		details: {},
+		getBackgroundPage : () => {
+			return {background: {
+				getHeadersDetails: () => {
+					return chrome.extension.details;
+				}
+			}};
 		}
 	}
 };
 
+chrome.extension.getBackgroundPage().background.getHeadersDetails

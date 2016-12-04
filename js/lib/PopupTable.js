@@ -2,7 +2,8 @@
 
 class PopupTable{
 	constructor(details) {
-		this.template = new SkyTemplate();
+		this.template = SkyTemplate.getInstance();
+		this.template.init();
 		this.template.addPartialLabel('requestTrArray', []);
 		this.template.addPartialLabel('responseTrArray', []);
 		this.details = details;

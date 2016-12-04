@@ -1,3 +1,4 @@
+let _instance = null;
 class SkyTemplate {
 	static TEMPLATE(){
 		return '\
@@ -36,11 +37,21 @@ class SkyTemplate {
 		</tr>\
 		';
 	}
+	static getInstance(){
+		if(_instance === null){
+			_instance = new SkyTemplate();
+		}
+		return _instance;
+	}
 	constructor() {
 		this.tempalte = "";
 		this.partials = {};
 		this.sourceTemplate = SkyTemplate.TEMPLATE();
 		this.sourceKeyValuePartial = SkyTemplate.KEY_VALUE_PARTIAL();
+	}
+	init(){
+		this.tempalte = "";
+		this.partials = {};
 	}
 	setSourceTemplate(template){
 		this.sourceTemplate = template;
