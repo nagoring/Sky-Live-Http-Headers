@@ -59,7 +59,7 @@ class SkyTemplate {
 	setSourceKeyValuePartial(partial){
 		this.sourceKeyValuePartial = partial;
 	}
-	addPartialLabel(label, value){
+	addPartialsKey(label, value){
 		this.partials[label] = value;
 	}
 	createTemplate(){
