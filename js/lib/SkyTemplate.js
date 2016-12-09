@@ -59,8 +59,8 @@ class SkyTemplate {
 	setSourceKeyValuePartial(partial){
 		this.sourceKeyValuePartial = partial;
 	}
-	addPartialLabel(label, value){
-		this.partials[label] = value;
+	addPartialsKey(parialsKey, value){
+		this.partials[parialsKey] = value;
 	}
 	createTemplate(){
 		this.tempalte = this.sourceTemplate;
@@ -68,16 +68,16 @@ class SkyTemplate {
 	setTemplateParam(key, value){
 		this.tempalte = this.tempalte.replace("#{" + key + "}", value);
 	}
-	addKeyValuePartial(label, key, value){
+	addKeyValuePartial(parialsKey, key, value){
 		var partial = this.sourceKeyValuePartial.replace("#{key}", key);
 		partial = partial.replace("#{value}", value);
-		this.partials[label].push(partial);
+		this.partials[parialsKey].push(partial);
 	}
-	getKeyValuePartial(label){
+	getKeyValuePartial(parialsKey){
 		var trTags = "";
-		var length = this.partials[label].length;
+		var length = this.partials[parialsKey].length;
 		for(var i=0;i<length;i++){
-			trTags += this.partials[label][i];
+			trTags += this.partials[parialsKey][i];
 		}
 		return trTags;
 	}

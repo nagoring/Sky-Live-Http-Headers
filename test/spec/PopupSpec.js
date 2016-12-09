@@ -9,14 +9,14 @@ describe("Popup. Windows: Must option chrome --allow-file-access-from-files. Mac
 	});
 
 	it("should be run() Failed tabs", () => {
-		let a = test.run();
+		test.run();
 		expect(document.getElementById('popup_main').innerHTML).toEqual("Failed tabs");
 	});
 
 	it("should be run() Failed details", () => {
 		chrome.tabs.tabs = [];
 		chrome.tabs.tabs.push({name: "tokyo"});
-		let a = test.run();
+		test.run();
 		expect(document.getElementById('popup_main').innerHTML).toEqual("Failed details");
 	});
 
@@ -46,12 +46,10 @@ describe("Popup. Windows: Must option chrome --allow-file-access-from-files. Mac
 		let template = SkyTemplate.getInstance();
 		template.setSourceTemplate("#{method}:#{url};#{statusLine};#{requestTrParicals};#{responseTrParicals};");
 		template.setSourceKeyValuePartial("#{key}+#{value},");
-		let a = test.run();
+		test.run();
 
 		let requestTrParicals = "Accept-Encoding+gzip,Accept-Language+ja,ZZZ+XXX,";
 		let responseTrParicals = "Content-Encoding+gzip,Content-Type+text/html,";
 		expect(document.getElementById('popup_main').innerHTML).toEqual("GET:http://nagoring.com;HTTP/1.1 200 OK;" + requestTrParicals + ";" + responseTrParicals + ";");
 	});
-
-	
 });

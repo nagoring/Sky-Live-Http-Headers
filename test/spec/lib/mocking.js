@@ -41,5 +41,3 @@ chrome = {
 		}
 	}
 };
-
-chrome.extension.getBackgroundPage().background.getHeadersDetails
